@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Suk
+    given-names: Julian
+    orcid: -
+title: "Coronary mesh convolution"
+version: -
+doi: -
+date-released: 2021-09-14
