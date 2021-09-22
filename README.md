@@ -67,7 +67,7 @@ This repository implements a three-scale mesh convolutional residual neural netw
 for wall shear stress estimation in 3D artery models"](https://arxiv.org/abs/2109.04797).
 
 ## Data
-We are willing to give out our synthetic coronary artery dataset. If you are interested send me an
+We are willing to share our synthetic coronary artery dataset. If you are interested send me an
 [e-mail](mailto:j.m.suk@utwente.nl).
 
 ## Publication
