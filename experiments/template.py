@@ -39,9 +39,9 @@ class Experiment:
 
         # Dataset IDs
         path = ...
-        pattern = "visuals/sample_*.vtp"  # in the "raw" folder
+        pattern = os.path.join("surface", "sample_*.vtp")  # in the "raw" folder
 
-        # Training, validation and test split (total 2170 samples)
+        # Training, validation and test split (total 2000 samples)
         train_split = [0, 1600]
         valid_split = [1600, 1800]
         test_split = [1800, 2000]
@@ -57,7 +57,7 @@ class Experiment:
 
         # Dataset IDs
         path = ...
-        pattern = "surface/sample_*.vtp"  # in the "raw" folder
+        pattern = os.path.join("surface", "sample_*.vtp")  # in the "raw" folder
 
         # Training, validation and test split (total 2000 samples)
         train_split = [0, 1600]
@@ -96,7 +96,7 @@ class Experiment:
                      tag=tag)
 
         # Write predictions to VTP files for visualisation
-        model.load_state_dict(torch.load("data/" + tag + ".pt", map_location='cpu'))
+        model.load_state_dict(torch.load(os.path.join("data", "{}.pt".format(tag)), map_location='cpu'))
         model.eval()  # set to evaluation mode
         if not os.path.exists('vis'):
             os.makedirs('vis')
@@ -105,7 +105,7 @@ class Experiment:
             prediction = model(sample.to(device))
             fields = visualisation.default_fields(sample, prediction)
             # fields['pooling'] = visualisation.pooling_scales(sample)
-            filename = "vis/prediction" + str(i) + ".vtp"
+            filename = os.path.join("vis", "prediction{}.vtp".format(str(i)))
             visualisation.new_file(sample.pos, sample.face, filename, fields)
             i += 1
 
