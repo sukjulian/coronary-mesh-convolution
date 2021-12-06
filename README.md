@@ -26,6 +26,7 @@ pip install tensorboard
 Gauge-equivariant mesh convolution
 ```
 git clone https://github.com/Qualcomm-AI-research/gauge-equivariant-mesh-cnn.git
+cd gauge-equivariant-mesh-cnn
 pip install .
 ```
 
