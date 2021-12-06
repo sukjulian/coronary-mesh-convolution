@@ -45,7 +45,7 @@ class IndexFinder(object):
     def __call__(self, surface_file):
 
         # Path to the inflow surface
-        inlet_file = surface_file.replace("visuals", "results")
+        inlet_file = surface_file.replace("surface", "inlet")
         inlet_file = inlet_file.replace("sample", "bct")
 
         # Global vertex IDs and polygons
@@ -77,7 +77,7 @@ class IndexFinder(object):
     def area(self, surface_file):
 
         # Path to the inflow surface
-        inlet_file = surface_file.replace("visuals", "results")
+        inlet_file = surface_file.replace("surface", "inlet")
         inlet_file = inlet_file.replace("sample", "bct")
 
         # Use trimesh object for area computation

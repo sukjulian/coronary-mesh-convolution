@@ -50,14 +50,14 @@ class Experiment:
         params = {'batch_size': self.batch_size, 'shuffle': False,
                   'num_workers': 0, 'pin_memory': False}
 
-        args = [self.tag, path, pattern, train_split, valid_split, test_split, params]
-        self.fit(device, args)
+        args = self.tag, path, pattern, train_split, valid_split, test_split, params
+        self.fit(device, *args)
 
     def fit_single(self, device):
 
         # Dataset IDs
         path = ...
-        pattern = "visuals/sample_*.vtp"  # in the "raw" folder
+        pattern = "surface/sample_*.vtp"  # in the "raw" folder
 
         # Training, validation and test split (total 2000 samples)
         train_split = [0, 1600]
@@ -68,11 +68,10 @@ class Experiment:
         params = {'batch_size': self.batch_size, 'shuffle': False,
                   'num_workers': 0, 'pin_memory': False}
 
-        args = [self.tag, path, pattern, train_split, valid_split, test_split, params]
-        self.fit(device, args)
+        args = self.tag, path, pattern, train_split, valid_split, test_split, params
+        self.fit(device, *args)
 
-    def fit(self, device, args):
-        tag, path, pattern, train_split, valid_split, test_split, params = args
+    def fit(self, device, tag, path, pattern, train_split, valid_split, test_split, params):
 
         # Create datasets
         train = InMemoryVesselDataset(path, pattern, train_split, "train", pre_transform=self.transform)
@@ -80,9 +79,9 @@ class Experiment:
         test = InMemoryVesselDataset(path, pattern, test_split, "test", pre_transform=self.transform)
 
         # Data loaders
-        train_loader = torch_geometric.data.DataLoader(train, **params)
-        valid_loader = torch_geometric.data.DataLoader(valid, **params)
-        test_loader = torch_geometric.data.DataLoader(test, batch_size=1)
+        train_loader = torch_geometric.loader.DataLoader(train, **params)
+        valid_loader = torch_geometric.loader.DataLoader(valid, **params)
+        test_loader = torch_geometric.loader.DataLoader(test, batch_size=1)
 
         # Network model (FeaSt convolutional network)
         model = self.model.to(device)

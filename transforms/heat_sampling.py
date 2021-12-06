@@ -28,7 +28,7 @@ class HeatSamplingCluster(object):
             if ratio == 1:
                 cluster = torch.arange(vertices.shape[0])  # trivial cluster
                 edges = radius_graph(vertices, radius, loop=self.loop)
-                # indices = torch.arange(vertices.shape[0])  # trivial indices
+                indices = torch.arange(vertices.shape[0])  # trivial indices
 
             else:
                 # Sample a subset of vertices
@@ -48,11 +48,11 @@ class HeatSamplingCluster(object):
                 edges = radius_graph(vertices, radius, loop=self.loop)
 
                 # Indices for scale visualisation
-                # indices = indices[unique]
+                indices = indices[unique]
 
-            data['scale' + str(i) + '_cluster_map'] = cluster
-            data['scale' + str(i) + '_edge_index'] = edges
-            # data['scale' + str(i) + '_sample_index'] = indices  # for visualisation only
+            data['scale' + str(i) + '_cluster_map'] = cluster  # assigns a cluster number to each fine-scale vertex
+            data['scale' + str(i) + '_edge_index'] = edges  # edges of the coarse-scale graph
+            data['scale' + str(i) + '_sample_index'] = indices  # which fine-scale vertices are part of the coarse scale
 
         return data
 
