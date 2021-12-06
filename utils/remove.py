@@ -25,8 +25,8 @@ def remove_vertices(data, vertex_mask, dummy_mask=False):
 
     # Remove the now isolated vertex features
     data.geo = data.geo[vertex_mask]
-    if 'norm' in data:
-        data.norm = data.norm[vertex_mask]
+    if 'norm' in data or 'normal' in data:
+        data['norm' if 'norm' in data else 'normal'] = data['norm' if 'norm' in data else 'normal'][vertex_mask]
     data.pos = data.pos[vertex_mask]
     data.y = data.y[vertex_mask]
 
