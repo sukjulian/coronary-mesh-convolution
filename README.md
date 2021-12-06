@@ -7,12 +7,12 @@ models". For questions regarding the usage and implementation feel free to [cont
 
 ## Dependencies & packages
 Dependencies:
-* Python (tested on 3.8.6)
-* PyTorch (tested on 1.9.0)
-* PyTorch Geometric "PyG" (tested on 1.7.2) with
+* Python (tested on 3.8.12)
+* PyTorch (tested on 1.10.0)
+* PyTorch Geometric "PyG" (tested on 2.0.2) with
   * torch-cluster (tested on 1.5.9)
-  * torch-scatter (tested on 2.0.8)
-  * torch-sparse (tested on 0.6.11)
+  * torch-scatter (tested on 2.0.9)
+  * torch-sparse (tested on 0.6.12)
 
 Packages:
 ```
@@ -23,6 +23,12 @@ pip install potpourri3d
 pip install tensorboard
 ```
 
+Gauge-equivariant mesh convolution
+```
+git clone https://github.com/Qualcomm-AI-research/gauge-equivariant-mesh-cnn.git
+pip install .
+```
+
 ## Set-up
 We adapt the dataset directory structure
 [used by PyTorch Geometric ("PyG")](https://pytorch-geometric.readthedocs.io/en/latest/notes/create_dataset.html). The
@@ -30,7 +36,7 @@ directory with the dataset should contain a folder "raw" with the unprocessed da
 "processed" with the transformed data.
 
 In our experiments we use the VTP file format to store polygon meshes and corresponding vector fields. We organise our
-data in two folders labelled "visuals" and "results". These contain the complete surface meshes and inlet boundary
+data in two folders labelled "surface" and "inlet". These contain the complete surface meshes and inlet boundary
 meshes, respectively. We use the latter to identify inlet boundary vertices for computation of geodesic distances
 (compare "utils/inlet.py" lines 48-49 and 80-81). It may be necessary to adapt the code for this procedure to different
 data.
@@ -62,8 +68,8 @@ pre-processing. Multiple helper functions and utility are outsourced in the fold
 
 ## Network layout
 ![architecture](img/architecture.jpg)
-This repository implements a three-scale mesh convolutional residual neural network with GraphSAGE and FeaSt
-(unfortunately no gauge-equivariant) convolution. For details refer to our paper ["Mesh convolutional neural networks
+This repository implements a three-scale mesh convolutional residual neural network with GraphSAGE, FeaSt
+and (now also) gauge-equivariant convolution. For details refer to our paper ["Mesh convolutional neural networks
 for wall shear stress estimation in 3D artery models"](https://arxiv.org/abs/2109.04797).
 
 ## Data

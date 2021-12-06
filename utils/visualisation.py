@@ -41,7 +41,8 @@ def default_fields(sample, prediction):
     padding[sample.mask] = 1.
     label = sample.y
     fields = {'prediction': prediction, 'label': label, 'error': label - prediction,
-              'normals': sample.norm, 'geodesics': sample.geo, 'padding': padding}
+              'normals': sample['normal' if 'normal' in sample else 'norm'],  # catch different naming
+              'geodesics': sample.geo, 'padding': padding}
 
     return fields
 
