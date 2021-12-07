@@ -34,7 +34,7 @@ class Metrics(object):
 
         # Scalar or vector-valued labels
         if len(batch.y.shape) == 1:
-            magnitude = batch.y
+            magnitude = torch.abs(batch.y)
             self.scalar = True
         else:
             magnitude = torch.linalg.norm(batch.y, dim=1)

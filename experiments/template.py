@@ -100,14 +100,12 @@ class Experiment:
         model.eval()  # set to evaluation mode
         if not os.path.exists('vis'):
             os.makedirs('vis')
-        i = 0
-        for sample in tqdm.tqdm(test_loader):
+        for i, sample in enumerate(tqdm.tqdm(test_loader)):
             prediction = model(sample.to(device))
             fields = visualisation.default_fields(sample, prediction)
             # fields['pooling'] = visualisation.pooling_scales(sample)
             filename = os.path.join("vis", "prediction{}.vtp".format(str(i)))
             visualisation.new_file(sample.pos, sample.face, filename, fields)
-            i += 1
 
         # Tabulate the evaluation metrics
         evaluation = Metrics([test_loader]).statistics(model, device)
