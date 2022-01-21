@@ -2,8 +2,9 @@
 ![architecture](img/pipeline.jpg)
 
 This repository contains code accompanying our (MICCAI 2021) "Workshop on Statistical Atlases and Computational
-Modelling of the Heart" (STACOM) paper "Mesh convolutional neural networks for wall shear stress estimation in 3D artery
-models". For questions regarding the usage and implementation feel free to [contact me](mailto:j.m.suk@utwente.nl).
+Modelling of the Heart" (STACOM) paper ["Mesh convolutional neural networks for wall shear stress estimation in 3D
+artery models"](https://doi.org/10.1007/978-3-030-93722-5_11). For questions regarding the usage and implementation
+feel free to [contact me](mailto:j.m.suk@utwente.nl).
 
 ## Dependencies & packages
 Dependencies:
@@ -74,16 +75,16 @@ and (now also) gauge-equivariant convolution. For details refer to our paper ["M
 for wall shear stress estimation in 3D artery models"](https://arxiv.org/abs/2109.04797).
 
 ## Data
-We are willing to share our synthetic coronary artery dataset. If you are interested send me an
+We are willing to share our synthetic (single) coronary artery dataset. If you are interested send me an
 [e-mail](mailto:j.m.suk@utwente.nl).
 
 ## Publication
-If you found this repository useful, please consider citing our paper:
+If you found this repository useful, please consider citing our [paper](https://doi.org/10.1007/978-3-030-93722-5_11):
 ```
-@inproceedings{Suk/et/al/2021,
-  author = {Julian Suk and Pim de Haan and Phillip Lippe and Christoph Brune and Jelmer M. Wolterink},
-  title = {Mesh convolutional neural networks for wall shear stress estimation in 3D artery models},
-  booktitle = {Statistical Atlases and Computational Models of the Heart},
-  year = {2021}
+@inproceedings{Suk/et/al2022,
+	author = {Julian Suk and Pim de Haan and Phillip Lippe and Christoph Brune and Jelmer M. Wolterink},
+	title = {Mesh convolutional neural networks for wall shear stress estimation in 3D artery models},
+	booktitle = {Statistical Atlases and Computational Models of the Heart. Multi-Disease, Multi-View, and Multi-Center Right Ventricular Segmentation in Cardiac MRI Challenge},
+	year = {2022}
 }
 ```
