@@ -76,15 +76,15 @@ for wall shear stress estimation in 3D artery models"](https://arxiv.org/abs/210
 
 ## Data
 We are willing to share our synthetic (single) coronary artery dataset. If you are interested send me an
-[e-mail](mailto:j.m.suk@utwente.nl).
+[e-mail](mailto:j.m.suk@utwente.nl). Units for wall shear stress ground truth in this dataset are [dyn/cm^2] = 0.1 [Pa].
 
 ## Publication
 If you found this repository useful, please consider citing our [paper](https://doi.org/10.1007/978-3-030-93722-5_11):
 ```
 @inproceedings{Suk/et/al2022,
-	author = {Julian Suk and Pim de Haan and Phillip Lippe and Christoph Brune and Jelmer M. Wolterink},
-	title = {Mesh convolutional neural networks for wall shear stress estimation in 3D artery models},
-	booktitle = {Statistical Atlases and Computational Models of the Heart. Multi-Disease, Multi-View, and Multi-Center Right Ventricular Segmentation in Cardiac MRI Challenge},
-	year = {2022}
+  author = {Julian Suk and Pim de Haan and Phillip Lippe and Christoph Brune and Jelmer M. Wolterink},
+  title = {Mesh convolutional neural networks for wall shear stress estimation in 3D artery models},
+  booktitle = {Statistical Atlases and Computational Models of the Heart. Multi-Disease, Multi-View, and Multi-Center Right Ventricular Segmentation in Cardiac MRI Challenge},
+  year = {2022}
 }
 ```
