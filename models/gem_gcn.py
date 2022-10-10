@@ -1,6 +1,6 @@
 import torch
 import torch_geometric.transforms as T
-from utils import parameter_table
+from utils.model_tools import parameter_table
 from gem_cnn.transform.scale_mask import ScaleMask
 from gem_cnn.transform.gem_precomp import GemPrecomp
 from gem_cnn.nn.gem_res_net_block import GemResNetBlock
@@ -9,27 +9,29 @@ from gem_cnn.utils.matrix_features import so2_feature_to_ambient_vector
 
 
 # Gauge-equivariant mesh convolutional neural network
-class GEM(torch.nn.Module):
-    def __init__(self, radii, max_order=2, n_rings=2):
-        super(GEM, self).__init__()
+class GEMGCN(torch.nn.Module):
+    def __init__(self, radii, in_rep, out_rep, max_order=2, n_rings=2):
+        super(GEMGCN, self).__init__()
+        self.in_rep = in_rep
+        self.out_rep = out_rep
 
-        channels = 24
+        channels = 26
         kwargs = dict(
             n_rings=n_rings,
             band_limit=2,
             num_samples=7,
             checkpoint=True,
-            batch=100000,
+            batch_norm=True
         )
 
         # Computed each forward pass
         self.scale_transforms = [
-            T.Compose((ScaleMask(i), GemPrecomp(n_rings, max_order, max_r=r)))
+            T.Compose([ScaleMask(i), GemPrecomp(n_rings, max_order, max_r=r)])
             for i, r in enumerate(radii)
         ]
 
         # Encoder
-        self.conv01 = GemResNetBlock(8, channels, 2, max_order, **kwargs)
+        self.conv01 = GemResNetBlock(in_rep[1], channels, in_rep[0], max_order, **kwargs)
         self.conv02 = GemResNetBlock(channels, channels, max_order, max_order, **kwargs)
 
         # Downstream
@@ -53,28 +55,44 @@ class GEM(torch.nn.Module):
         self.conv03 = GemResNetBlock(channels + channels, channels, max_order, max_order, **kwargs)
         self.conv04 = GemResNetBlock(channels, channels, max_order, max_order, **kwargs)
         self.conv05 = GemResNetBlock(channels, channels, max_order, max_order, **kwargs)
-        self.conv06 = GemResNetBlock(channels, 1, max_order, 1, last_layer=True, **kwargs)
+        self.conv06 = GemResNetBlock(channels, out_rep[1], max_order, out_rep[0], last_layer=True, **kwargs)
 
-        print(self.parameter_table())
+        print("{} ({} trainable parameters)".format(self.__class__.__name__, self.count_parameters))
 
     @property
     def count_parameters(self):
         return sum(p.numel() for p in self.parameters() if p.requires_grad)
 
     def parameter_table(self):
-        return parameter_table.create(self)
+        return parameter_table(self)
 
-    def forward(self, data):
-        # Select the scale graphs
-        scale_data = [s(data) for s in self.scale_transforms]
-        scale_attr = [(d.edge_index, d.precomp, d.connection) for d in scale_data]
+    def prepare_input(self, data):
 
         # Geodesics-to-inlet feature in SO(2) representation
         features = data.matrix_features
         N, _, irreps = features.shape  # e.g. [N, 7, 5]
+
         geodesics = torch.zeros((N, 1, irreps), device=features.device)
         geodesics[:, 0, 0] = data.geo
-        x = torch.cat((features, geodesics), dim=1)
+
+        x = torch.cat((
+            features,
+            geodesics
+        ), dim=1)
+
+        if self.in_rep[1] > x.size(1):
+            condition = torch.zeros((N, 1, irreps), device=features.device)
+            condition[:, 0, 0] = data.condition[data.batch]
+            x = torch.cat((x, condition), dim=1)
+
+        # Select the scale graphs
+        scale_data = [s(data) for s in self.scale_transforms]
+        scale_attr = [(d.edge_index, d.precomp, d.connection) for d in scale_data]
+
+        return x, scale_attr
+
+    def forward(self, data):
+        x, scale_attr = self.prepare_input(data)
 
         # Encoder
         x = self.conv01(x, *scale_attr[0])
@@ -109,5 +127,8 @@ class GEM(torch.nn.Module):
 
         # Construct ambient vectors from tangential SO(2) features
         x = so2_feature_to_ambient_vector(x, data.frame).squeeze()
+
+        # if hasattr(self, 'norm'):
+        #     x = self.norm.reverse(x)
 
         return x

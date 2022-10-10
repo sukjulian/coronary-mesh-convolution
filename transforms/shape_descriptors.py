@@ -3,7 +3,7 @@ import torch
 from torch_scatter import scatter
 
 
-class FeatureDescriptors(object):
+class MatrixFeatures(object):
     """Computes a feature descriptor based on the outer product of positions difference and normals difference between
     neighbouring vertices. Requires normals being available for each vertex.
 
@@ -17,17 +17,17 @@ class FeatureDescriptors(object):
     def __call__(self, data):
         index = radius(data.pos, data.pos, self.r)
 
-        difference = data.pos[index[1]] - data.pos[index[0]]
+        difference = data.pos[index[0]] - data.pos[index[1]]  # pointing outward ("source to target")
         distance = torch.linalg.norm(difference, dim=1)
 
         weight = (self.r - distance)
 
         difference = difference / self.r
-        normal = data.norm[index[1]]
+        normal = data.norm[index[0]]  # surrounding vertices ("source to target")
 
-        descriptor = torch.cat([self.feature(difference, difference, index[0], weight).unsqueeze(1),
-                                self.feature(normal, normal, index[0], weight).unsqueeze(1),
-                                self.feature(difference, normal, index[0], weight).unsqueeze(1)], dim=1)
+        descriptor = torch.cat([self.feature(difference, difference, index[1], weight).unsqueeze(1),
+                                self.feature(normal, normal, index[1], weight).unsqueeze(1),
+                                self.feature(difference, normal, index[1], weight).unsqueeze(1)], dim=1)
         data.feat = descriptor
 
         return data
@@ -37,7 +37,7 @@ class FeatureDescriptors(object):
         matrix = torch.bmm(a.view(-1, 3, 1), b.view(-1, 1, 3))  # batch matrix multiplication
         matrix = weight.view(-1, 1, 1) * matrix
 
-        average = scatter(matrix, i, dim=0, reduce='sum')
+        average = scatter(matrix, i, dim=0, reduce='mean')
 
         # if torch.all(torch.eq(a, b)):  # symmetric
         #     return average[:, [0, 0, 0, 1, 1, 2], [0, 1, 2, 1, 2, 2]]  # flattened upper triangular

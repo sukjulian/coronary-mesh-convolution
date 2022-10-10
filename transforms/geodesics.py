@@ -1,4 +1,4 @@
-from utils.inlet import IndexFinder
+from utils.artery_tools import IndexFinder
 import potpourri3d as pp3d
 import torch
 
@@ -17,7 +17,12 @@ class InletGeodesics(object):
         solver = pp3d.MeshHeatMethodDistanceSolver(data.pos.numpy(), data.face.t().numpy())
 
         # Compute the minimum geodesic distances to the inlet
-        inlet, _ = self.inlet_indices(data.dir)
+        if hasattr(data, 'inlet_index'):
+            inlet = data['inlet_index'].numpy()
+
+        else:
+            inlet, _ = self.inlet_indices(data.dir)
+
         geodesics = solver.compute_distance_multisource(inlet)
 
         # Append the features in single precision

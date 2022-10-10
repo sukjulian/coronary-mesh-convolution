@@ -2,7 +2,7 @@ from torch_geometric.data import Data
 from torch_sparse import SparseTensor
 
 
-# Overwrite "Data" class to ensure correct batching for pooling hierarchy
+# Override "Data" class to ensure correct batching for pooling hierarchy
 class MultiscaleData(Data):
     def __init__(self, x=None, edge_index=None, edge_attr=None,
                  y=None, pos=None, normal=None, face=None, **kwargs):
@@ -14,8 +14,8 @@ class MultiscaleData(Data):
         if 'batch' in key:
             return int(value.max()) + 1
 
-        # Batch edges and polygons as before
-        elif key == 'edge_index' or key == 'face':
+        # Batch edges, polygons and inlet indices as before
+        elif key == 'edge_index' or key == 'face' or key == 'inlet_index':
             return self.num_nodes
 
         # Batch scales correctly
@@ -26,7 +26,7 @@ class MultiscaleData(Data):
             if int(key[5]) == 0:
                 return self.num_nodes
             else:
-                return self['scale' + str(int(key[5]) - 1) + '_sample_index'].size(dim=0)
+                return self['scale' + str(int(key[5]) - 1) + '_sample_index'].size(dim=0)  # must pass integer (PyTorch)
 
         else:
             return 0

@@ -1,6 +1,7 @@
 from vtk.util.numpy_support import vtk_to_numpy, numpy_to_vtk, numpy_to_vtkIdTypeArray
 import vtk
 import numpy as np
+import torch
 
 
 # Create a "vtkPolyData" object from PyTorch data
@@ -49,3 +50,28 @@ def add_fields(polydata, fields, ftype='point'):
                 polydata.GetPointData().SetNormals(array)
 
     return polydata
+
+
+# Parse polygon array from "vtkPolyData"
+def parse_polygons(polygons, wind=False):
+    """
+    The first elements in "polygons" specify how many nodes are in
+    the current polygon, followed by the corresponding point indices,
+    e.g. z = [3 0 1 2 3 3 4 5 3 6 ...]. Assume all are triangles:
+    """
+
+    polygons = polygons.reshape((int(polygons.shape[0] / 4), 4))
+    polygons = polygons[:, 1:]
+
+    if wind:
+        polygons[:, [1, 0]] = polygons[:, [0, 1]]  # correct face orientation
+
+    return polygons
+
+
+# Read vertex positions and polygons from "vtkPolyData"
+def vtk_to_torch(polydata):
+    vertices = vtk_to_numpy(polydata.GetPoints().GetData())  # float32
+    polygons = parse_polygons(vtk_to_numpy(polydata.GetPolys().GetData()))  # int64
+
+    return torch.from_numpy(vertices), torch.from_numpy(polygons.T.astype('i4'))

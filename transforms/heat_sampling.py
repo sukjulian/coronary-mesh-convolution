@@ -13,12 +13,16 @@ class HeatSamplingCluster(object):
         ratios (list): Ratios for farthest point sampling relative to the previous scale hierarchy.
         radii (list): Maximum radii for the creation of radius graphs on each scale.
         loop (bool): Whether to construct self-loop edges.
+        max_neighbours (int): Maximum number of neighbours for the radius graphs.
     """
 
-    def __init__(self, ratios, radii, loop=False):
+    def __init__(self, ratios, radii, loop=False, max_neighbours=32):
         self.ratios = ratios
         self.radii = radii
         self.loop = loop
+        self.max_neighbours = max_neighbours
+
+        self.args = (self.ratios, self.radii, self.loop, self.max_neighbours)
 
     def __call__(self, data):
 
@@ -27,7 +31,7 @@ class HeatSamplingCluster(object):
 
             if ratio == 1:
                 cluster = torch.arange(vertices.shape[0])  # trivial cluster
-                edges = radius_graph(vertices, radius, loop=self.loop)
+                edges = radius_graph(vertices, radius, loop=self.loop, max_num_neighbors=self.max_neighbours)
                 indices = torch.arange(vertices.shape[0])  # trivial indices
 
             else:
@@ -45,16 +49,16 @@ class HeatSamplingCluster(object):
                 vertices = vertices[indices[unique]]
 
                 # Connect vertices that are closer together than "radius"
-                edges = radius_graph(vertices, radius, loop=self.loop)
+                edges = radius_graph(vertices, radius, loop=self.loop, max_num_neighbors=self.max_neighbours)
 
-                # Indices for scale visualisation
+                # Indices for scale visualisation and reconstruction
                 indices = indices[unique]
 
-            data['scale' + str(i) + '_cluster_map'] = cluster  # assigns a cluster number to each fine-scale vertex
-            data['scale' + str(i) + '_edge_index'] = edges  # edges of the coarse-scale graph
-            data['scale' + str(i) + '_sample_index'] = indices  # which fine-scale vertices are part of the coarse scale
+            data['scale' + str(i) + '_cluster_map'] = cluster
+            data['scale' + str(i) + '_edge_index'] = edges
+            data['scale' + str(i) + '_sample_index'] = indices
 
         return data
 
     def __repr__(self):
-        return '{}(ratios={}, radii={}, loop={})'.format(self.__class__.__name__, self.ratios, self.radii, self.loop)
+        return '{}(ratios={}, radii={}, loop={}, max_neighbours={})'.format(self.__class__.__name__, *self.args)
