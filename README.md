@@ -33,7 +33,7 @@ pip install .
 ## Data
 You can download the dataset(s) from [here](https://drive.google.com/drive/folders/18lNjZPYKLmd7w-UX7GwepHAy2R-3YP3W?usp=sharing). The wall shear stress physical units are [dyn/cm^2] = 0.1 [Pa].
 
-We adapt the dataset-directory structure [used by PyTorch Geometric ("PyG")](https://pytorch-geometric.readthedocs.io/en/latest/notes/create_dataset.html). The directory with the dataset should contain a folder "raw" with the unprocessed data. Pre-processing creates a folder "processed" with the transformed data.
+We adapt the dataset-directory structure [used by PyTorch Geometric ("PyG")](https://pytorch-geometric.readthedocs.io/en/latest/notes/create_dataset.html). The directory with the dataset should contain a folder `raw` with the unprocessed data. Pre-processing creates a folder `processed` with the transformed data.
 ```
 vessel-datasets
 └── stead
@@ -45,14 +45,14 @@ vessel-datasets
             └── database.hdf5
 ```
 
-## Set-up
-Experiments are run by executing e.g. (options listed in "main.py")
+## Usage
+Experiments are run by executing e.g. (options listed in `main.py`)
 ```
 python main.py --model stead --artery_type single
 ```
-and produce visualised output in the "vis" directory which can be viewed with e.g. ParaView (https://www.paraview.org/).
+and produce visualised output in the `vis` directory which can be viewed with e.g. [ParaView](https://www.paraview.org/).
 
-Hyperparameters for neural network training are set in an experiment file, e.g. "exp/gem_gcn/stead.py". Training curves can be viewed with TensorBoard for PyTorch via
+Hyperparameters for neural network training are set in an experiment file, e.g. `exp/gem_gcn/stead.py`. Training curves can be viewed with TensorBoard for PyTorch via
 ```
 tensorboard --logdir=runs
 ```
@@ -65,7 +65,7 @@ python main.py --model stead --artery_type single --num_epochs 100 --gpu 0 1
 ![architecture](img/architecture.jpg)
 This repository implements a three-scale mesh-based graph convolutional residual neural network with gauge-equivariant convolution. For details refer to our paper ["Mesh convolutional neural networks for wall shear stress estimation in 3D artery models"](https://arxiv.org/abs/2109.04797).
 
-##DiffusionNet
+## DiffusionNet
 We have included [DiffusionNet](https://arxiv.org/abs/2012.00888) as an additional baseline. The code is copy & pasted from [this](https://github.com/nmwsharp/diffusion-net) excellent repository.
 
 ## Publication
