@@ -17,7 +17,7 @@ Packages:
 pip install prettytable vtk trimesh potpourri3d tensorboard h5py robust_laplacian
 ```
 
-You can install all of these with the provided conda environment file:
+You can install all of these with the provided conda environment file (CUDA 11.6):
 ```
 conda env create -f environment.yml -n cmc
 conda activate cmc
@@ -31,7 +31,7 @@ pip install .
 ```
 
 ## Data
-You can download the dataset(s) from [here](https://drive.google.com/drive/folders/18lNjZPYKLmd7w-UX7GwepHAy2R-3YP3W?usp=sharing). The wall shear stress physical units are [dyn/cm^2] = 0.1 [Pa].
+You can download the dataset(s) from [here](https://drive.google.com/drive/folders/18lNjZPYKLmd7w-UX7GwepHAy2R-3YP3W?usp=sharing). The physical units for wall shear stress are [dyn/cm^2] = 0.1 [Pa].
 
 We adapt the dataset-directory structure [used by PyTorch Geometric ("PyG")](https://pytorch-geometric.readthedocs.io/en/latest/notes/create_dataset.html). The directory with the dataset should contain a folder `raw` with the unprocessed data. Pre-processing creates a folder `processed` with the transformed data.
 ```
@@ -48,11 +48,13 @@ vessel-datasets
 ## Usage
 Experiments are run by executing e.g. (options listed in `main.py`)
 ```
-python main.py --model stead --artery_type single
+python main.py --model gem_gcn --artery_type single
 ```
 and produce visualised output in the `vis` directory which can be viewed with e.g. [ParaView](https://www.paraview.org/).
 
-Hyperparameters for neural network training are set in an experiment file, e.g. `exp/gem_gcn/stead.py`. Training curves can be viewed with TensorBoard for PyTorch via
+Hyperparameters for neural network training are set in an experiment file, e.g. `exp/gem_gcn/stead.py`.
+
+Training curves can be viewed with TensorBoard for PyTorch via
 ```
 tensorboard --logdir=runs
 ```

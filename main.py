@@ -9,7 +9,7 @@ parser = ArgumentParser()
 parser.add_argument(
     '--model',
     type=str,
-    choices=['stead', 'baseline', 'diffusionnet'],
+    choices=['gem_gcn', 'baseline', 'diffusionnet'],
     required=True
 )
 parser.add_argument('--artery_type', type=str, choices=['single', 'bifurcating'], required=True)
@@ -21,7 +21,7 @@ args = parser.parse_args()
 device = torch.device(f'cuda:{args.gpu[0]}' if torch.cuda.is_available() else 'cpu')
 
 # GEM-GCN
-if args.model == 'stead':
+if args.model == 'gem_gcn':
     stead.fit(args.artery_type, args.num_epochs, device, args.gpu if len(args.gpu) > 1 else None)
 
 # IsoGCN or AttGCN (set in experiment script)
