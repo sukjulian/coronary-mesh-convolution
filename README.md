@@ -29,9 +29,14 @@ git clone https://github.com/Qualcomm-AI-research/gauge-equivariant-mesh-cnn.git
 cd gauge-equivariant-mesh-cnn
 pip install .
 ```
+If you get an error regarding OpenMesh, try
+```
+conda install -c conda-forge openmesh-python
+```
+and then try to install again.
 
 ## Data
-You can download the dataset(s) from [here](https://drive.google.com/drive/folders/18lNjZPYKLmd7w-UX7GwepHAy2R-3YP3W?usp=sharing). The physical units for wall shear stress are [dyn/cm^2] = 0.1 [Pa].
+You can download the dataset(s) from [here](https://drive.google.com/drive/folders/18lNjZPYKLmd7w-UX7GwepHAy2R-3YP3W?usp=sharing). The physical units for wall shear stress are [dyn/cm^2] = 0.1 [Pa]. We additionally provide [pre-trained model weights](https://drive.google.com/drive/folders/1o-vklPaGulkpLkM7TiwBmVAAN4vvpaJf?usp=sharing).
 
 We adapt the dataset-directory structure [used by PyTorch Geometric ("PyG")](https://pytorch-geometric.readthedocs.io/en/latest/notes/create_dataset.html). The directory with the dataset should contain a folder `raw` with the unprocessed data. Pre-processing creates a folder `processed` with the transformed data.
 ```
@@ -44,23 +49,22 @@ vessel-datasets
         └── raw
             └── database.hdf5
 ```
+The pre-trained model weights should be placed in a folder `model-weights` and are loaded automatically if present.
 
 ## Usage
 Experiments are run by executing e.g. (options listed in `main.py`)
 ```
 python main.py --model gem_gcn --artery_type single
 ```
-and produce visualised output in the `vis` directory which can be viewed with e.g. [ParaView](https://www.paraview.org/).
+and produce visualised output in the `vis` directory which can be viewed with e.g. [ParaView](https://www.paraview.org/). If you get an error `Unable to open file` try downloading the HDF5 files directly instead of the whole directory and placing them in their respective folders manually. If everything works, first thing you will see is the pre-processing of the training data.
 
-Hyperparameters for neural network training are set in an experiment file, e.g. `exp/gem_gcn/stead.py`.
-
-Training curves can be viewed with TensorBoard for PyTorch via
+Hyperparameters for neural network training are set in an experiment file, e.g. `exp/gem_gcn/stead.py`. Training curves can be viewed with TensorBoard for PyTorch via
 ```
 tensorboard --logdir=runs
 ```
 We support parallelisation over multiple GPUs. Just use the command line option with a space-separated list.
 ```
-python main.py --model stead --artery_type single --num_epochs 100 --gpu 0 1
+python main.py --model gem_gcn --artery_type single --num_epochs 100 --gpu 0 1
 ```
 
 ## Network layout

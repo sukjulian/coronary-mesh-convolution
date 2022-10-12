@@ -120,7 +120,7 @@ class Experiment:
         if not os.path.exists('vis'):
             os.makedirs('vis')
         with torch.no_grad():
-            for i, sample in enumerate(test_loader):
+            for i, sample in enumerate(tqdm.tqdm(test_loader, desc="Visualising")):
                 prediction = model.to(torch.device('cpu'))(sample.to(torch.device('cpu')))
                 target = sample.y.clone()
 
@@ -149,7 +149,7 @@ def training(model, loaders, objective, epochs, optimiser, device, tag, use_sche
     # Hack$
     best = 1e8
 
-    for epoch in tqdm.tqdm(range(epochs)):
+    for epoch in tqdm.tqdm(range(epochs), desc="Training"):
         model.train()  # set to training mode
         train_loss = torch.zeros(len(train_loader))
         for i, batch in enumerate(train_loader):
@@ -205,7 +205,7 @@ def parallel_training(model, loaders, objective, epochs, optimiser, device, tag)
     # Hack$
     best = 1e8
 
-    for epoch in tqdm.tqdm(range(epochs)):
+    for epoch in tqdm.tqdm(range(epochs), desc="Training"):
         model.train()  # set to training mode
         train_loss = torch.zeros(len(train_loader))
         for i, batch in enumerate(train_loader):

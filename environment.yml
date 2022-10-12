@@ -105,4 +105,3 @@ dependencies:
     - yacs==0.1.8
     - yarl==1.8.1
     - zipp==3.9.0
-prefix: /home/julian/anaconda3/envs/cmc

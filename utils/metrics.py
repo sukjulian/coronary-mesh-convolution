@@ -98,7 +98,7 @@ class Metrics(object):
         scale_max, scale_median = [], []
         cos_mean = []
         for loader in self.loaders:
-            for batch in tqdm(loader):
+            for batch in tqdm(loader, desc="Evaluating"):
 
                 batch = batch.to(device)
                 prediction = model(batch)[batch.mask]
