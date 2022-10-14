@@ -24,7 +24,7 @@ device = torch.device(f'cuda:{args.gpu[0]}' if torch.cuda.is_available() else 'c
 if args.model == 'gem_gcn':
     stead.fit(args.artery_type, args.num_epochs, device, args.gpu if len(args.gpu) > 1 else None)
 
-# IsoGCN or AttGCN (set in experiment script)
+# IsoGCN or AttGCN (set in "exp/baseline.py")
 elif args.model == 'baseline':
     baseline.fit(args.artery_type, args.num_epochs, device, args.gpu if len(args.gpu) > 1 else None)
 
