@@ -48,7 +48,7 @@ class Experiment:
 
         # Dataset IDs
         path = f"{dataset_folder}/stead/bifurcating/"
-        pattern = "*"  # in the "raw" folder
+        pattern = "*.hdf5"  # in the "raw" folder
 
         # Training, validation and test split (total 1999 samples)
         train_split = [0, 1600]
@@ -65,7 +65,7 @@ class Experiment:
 
         # Dataset IDs
         path = f"{dataset_folder}/stead/single/"  # directory containing the folder "raw"
-        pattern = "*"  # in the "raw" folder
+        pattern = "*.hdf5"  # in the "raw" folder
 
         # Training, validation and test split (total 2000 samples)
         train_split = [0, 1600]
