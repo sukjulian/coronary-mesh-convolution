@@ -62,7 +62,7 @@ Hyperparameters for neural network training are set in an experiment file, e.g. 
 ```
 tensorboard --logdir=runs
 ```
-We support parallelisation over multiple GPUs. Just use the command line option with a space-separated list.
+This codebase supports parallelisation over multiple GPUs. Just use the command line option with a space-separated list.
 ```
 python main.py --model gem_gcn --artery_type single --num_epochs 100 --gpu 0 1
 ```

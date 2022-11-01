@@ -1,15 +1,11 @@
 import torch_geometric
-import vtk
 import torch
 import os
 from pathlib import Path
 import tqdm
 import glob
 import h5py
-from vtk.util.numpy_support import vtk_to_numpy
-import numpy as np
 from data import MultiscaleData as Data
-import utils.vtk_tools
 
 
 # Vessel dataset fitting in RAM
@@ -20,7 +16,6 @@ class InMemoryVesselDataset(torch_geometric.data.InMemoryDataset):
         self.root = root
         self.pattern = pattern
         self.purpose = purpose
-        self.reader = vtk.vtkXMLPolyDataReader()
 
         # Training and validation split
         self.split = split
