@@ -1,3 +1,5 @@
+_As of 28 June 2023,_ [`gem_cnn`](https://github.com/Qualcomm-AI-research/gauge-equivariant-mesh-cnn) _provides a more efficient implementation with ca. 60 % speed-up, so make sure to re-install!_
+
 # Coronary mesh convolution
 ![architecture](img/pipeline.jpg)
 
