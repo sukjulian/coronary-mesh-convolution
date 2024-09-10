@@ -5,7 +5,7 @@ _This repository contains code for learning on surface meshes. If you are instea
 # Coronary mesh convolution
 ![architecture](img/pipeline.jpg)
 
-This repository contains code accompanying our (MICCAI 2021) "Workshop on Statistical Atlases and Computational Modelling of the Heart" (STACOM) paper ["Mesh convolutional neural networks for wall shear stress estimation in 3D artery models"](https://link.springer.com/chapter/10.1007/978-3-030-93722-5_11). For questions, feel free to [contact me](mailto:j.m.suk@utwente.nl).
+This repository contains the official implementation of ["Mesh convolutional neural networks for wall shear stress estimation in 3D artery models"](https://link.springer.com/chapter/10.1007/978-3-030-93722-5_11) (STACOM workshop @ MICCAI 2021) and ["Mesh neural networks for SE(3)-equivariant hemodynamics estimation on the artery wall"](https://www.sciencedirect.com/science/article/pii/S0010482524004128) (Computers in Biology and Medicine). For questions, feel free to [contact me](mailto:j.m.suk@utwente.nl).
 
 ## Dependencies & packages
 Dependencies:
@@ -78,13 +78,30 @@ This repository implements a three-scale mesh-based graph convolutional residual
 ## DiffusionNet
 We have included [DiffusionNet](https://arxiv.org/abs/2012.00888) as an additional baseline. The code is copy & pasted from [this](https://github.com/nmwsharp/diffusion-net) excellent repository.
 
-## Publication
-If you found this repository useful, please consider citing our paper:
+## Publications
+If you found this repository useful, please consider citing our paper(s):
 ```
-@inproceedings{Suk/et/al/2021,
-  author = {Julian Suk and Pim de Haan and Phillip Lippe and Christoph Brune and Jelmer M. Wolterink},
-  title = {Mesh convolutional neural networks for wall shear stress estimation in 3D artery models},
-  booktitle = {Statistical Atlases and Computational Models of the Heart},
-  year = {2021}
+@article{SUK2024108328,
+title = {Mesh neural networks for SE(3)-equivariant hemodynamics estimation on the artery wall},
+journal = {Computers in Biology and Medicine},
+volume = {173},
+pages = {108328},
+year = {2024},
+issn = {0010-4825},
+doi = {https://doi.org/10.1016/j.compbiomed.2024.108328},
+url = {https://www.sciencedirect.com/science/article/pii/S0010482524004128},
+author = {Julian Suk and Pim {de Haan} and Phillip Lippe and Christoph Brune and Jelmer M. Wolterink},
+}
+
+@InProceedings{10.1007/978-3-030-93722-5_11,
+author="Suk, Julian and Haan, Pim de and Lippe, Phillip and Brune, Christoph and Wolterink, Jelmer M.",
+editor="Puyol Ant{\'o}n, Esther and Pop, Mihaela and Mart{\'i}n-Isla, Carlos and Sermesant, Maxime and Suinesiaputra, Avan and Camara, Oscar and Lekadir, Karim and Young, Alistair",
+title="Mesh Convolutional Neural Networks for Wall Shear Stress Estimation in 3D Artery Models",
+booktitle="Statistical Atlases and Computational Models of the Heart. Multi-Disease, Multi-View, and Multi-Center Right Ventricular Segmentation in Cardiac MRI Challenge",
+year="2022",
+publisher="Springer International Publishing",
+address="Cham",
+pages="93--102",
+isbn="978-3-030-93722-5"
 }
 ```
