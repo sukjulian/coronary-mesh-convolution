@@ -1,6 +1,4 @@
-_As of 28 June 2023,_ [`gem_cnn`](https://github.com/Qualcomm-AI-research/gauge-equivariant-mesh-cnn) _is implemented more efficiently with ca. 60 % speed-up, so make sure to re-install!_
-
-_This repository contains code for learning on surface meshes. If you are instead trying to learn on volume meshes, try_ [this one](https://github.com/sukjulian/segnn-hemodynamics)_._
+_If you like this work, also check out our latest iteration [LaB-GATr](https://github.com/sukjulian/lab-gatr) which can be used for the same applications and more!_
 
 # Coronary mesh convolution
 ![architecture](img/pipeline.jpg)
