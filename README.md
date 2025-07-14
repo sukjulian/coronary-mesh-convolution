@@ -38,7 +38,7 @@ conda install -c conda-forge openmesh-python
 and then try to install again.
 
 ## Data
-You can download the dataset(s) from [here](https://drive.google.com/drive/folders/18lNjZPYKLmd7w-UX7GwepHAy2R-3YP3W?usp=sharing). The physical units for wall shear stress are [dyn/cm^2] = 0.1 [Pa]. We additionally provide [pre-trained model weights](https://drive.google.com/drive/folders/1o-vklPaGulkpLkM7TiwBmVAAN4vvpaJf?usp=sharing).
+You can download the dataset(s) from [here](https://surfdrive.surf.nl/files/index.php/s/prElf2HkN0x3JOY/download). The physical units for wall shear stress are [dyn/cm^2] = 0.1 [Pa]. We additionally provide [pre-trained model weights](https://surfdrive.surf.nl/files/index.php/s/rOBfyIz5qoimaQP).
 
 We adapt the dataset-directory structure [used by PyTorch Geometric ("PyG")](https://pytorch-geometric.readthedocs.io/en/latest/notes/create_dataset.html). The directory with the dataset should contain a folder `raw` with the unprocessed data. Pre-processing creates a folder `processed` with the transformed data.
 ```
