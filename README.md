@@ -77,7 +77,7 @@ This repository implements a three-scale mesh-based graph convolutional residual
 We have included [DiffusionNet](https://arxiv.org/abs/2012.00888) as an additional baseline. The code is copy & pasted from [this](https://github.com/nmwsharp/diffusion-net) excellent repository.
 
 ## Publications
-If you found this repository useful, please consider citing our paper(s):
+If you found this repository useful, consider citing our paper(s):
 ```
 @article{MeshNeuralNetworks,
 title = {Mesh neural networks for {SE(3)}-equivariant hemodynamics estimation on the artery wall},
