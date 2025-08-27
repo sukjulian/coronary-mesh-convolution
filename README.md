@@ -77,10 +77,10 @@ This repository implements a three-scale mesh-based graph convolutional residual
 We have included [DiffusionNet](https://arxiv.org/abs/2012.00888) as an additional baseline. The code is copy & pasted from [this](https://github.com/nmwsharp/diffusion-net) excellent repository.
 
 ## Publications
-If you found this repository useful, please consider citing our paper(s):
+If you found this repository useful, please cite our paper(s):
 ```
-@article{SUK2024108328,
-title = {Mesh neural networks for SE(3)-equivariant hemodynamics estimation on the artery wall},
+@article{MeshNeuralNetworks,
+title = {Mesh neural networks for {SE(3)}-equivariant hemodynamics estimation on the artery wall},
 journal = {Computers in Biology and Medicine},
 volume = {173},
 pages = {108328},
@@ -88,13 +88,16 @@ year = {2024},
 issn = {0010-4825},
 doi = {https://doi.org/10.1016/j.compbiomed.2024.108328},
 url = {https://www.sciencedirect.com/science/article/pii/S0010482524004128},
-author = {Julian Suk and Pim {de Haan} and Phillip Lippe and Christoph Brune and Jelmer M. Wolterink},
+author = {Julian Suk and Pim {de Haan} and Phillip Lippe and Christoph Brune and Jelmer M. Wolterink}
 }
 
-@InProceedings{10.1007/978-3-030-93722-5_11,
-author="Suk, Julian and Haan, Pim de and Lippe, Phillip and Brune, Christoph and Wolterink, Jelmer M.",
-editor="Puyol Ant{\'o}n, Esther and Pop, Mihaela and Mart{\'i}n-Isla, Carlos and Sermesant, Maxime and Suinesiaputra, Avan and Camara, Oscar and Lekadir, Karim and Young, Alistair",
-title="Mesh Convolutional Neural Networks for Wall Shear Stress Estimation in 3D Artery Models",
+@inproceedings{MeshConvolutionalNeuralNetworks,
+author="Suk, Julian
+and Haan, Pim de
+and Lippe, Phillip
+and Brune, Christoph
+and Wolterink, Jelmer M.",
+title="Mesh Convolutional Neural Networks for Wall Shear Stress Estimation in {3D} Artery Models",
 booktitle="Statistical Atlases and Computational Models of the Heart. Multi-Disease, Multi-View, and Multi-Center Right Ventricular Segmentation in Cardiac MRI Challenge",
 year="2022",
 publisher="Springer International Publishing",
